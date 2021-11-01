@@ -9,16 +9,16 @@ import java.util.Optional;
 
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원가입
      */
     public Long join(Member member) {
-        // cmd + opt + v -> 변수 추출
-        // control + t -> 리팩토링 관련 모음
-        // opt + cmd + m -> 메소드 추출
-
         validateDuplicatedMember(member); // 중복 회원 검증
         memberRepository.save(member);
         return member.getId();
